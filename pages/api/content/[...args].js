@@ -1,10 +1,10 @@
 /**
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 import http from 'http';
 import https from 'https';
-import { getAuthValue, isAuthNeeded } from '../../../scripts/server-config-utils';
+import getClient from '../../../scripts/server-config-utils';
 
 /*
  * Handle the proxy request.
@@ -65,12 +65,11 @@ export default async function handler(req, res) {
   // disabling this lint as we will always return a response in the 'writeProxyContent' method
   // eslint-disable-next-line consistent-return
   return new Promise(() => {
-    if (isAuthNeeded()) {
-      getAuthValue().then((authValue) => {
+    if (process.env.AUTH || process.env.AUTH_PARAMS) {
+      const client = getClient();
+      client.getAuthorizationHeaderValue().then((authValue) => {
         handleContentRequest(req, res, authValue);
       });
-    } else {
-      handleContentRequest(req, res, '');
     }
   });
 }

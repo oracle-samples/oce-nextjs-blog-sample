@@ -5,8 +5,8 @@
       "node": true
   },
   "extends": [
-      "plugin:react/recommended",
-      "airbnb"
+      "airbnb",
+      "plugin:@next/next/recommended"
   ],
   "globals": {
       "Atomics": "readonly",
@@ -21,8 +21,7 @@
       "sourceType": "module"
   },
   "plugins": [
-      "header",
-      "react"
+      "header"
   ],
   "rules": {
     "header/header": [2, "block", [
@@ -31,6 +30,8 @@
       " * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/",
       " "
   ]],
-    "no-console": "off"
+    "no-console": "off",
+    "@next/next/no-img-element": "off",
+    "react/function-component-definition": "off"
   }
 }

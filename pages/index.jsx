@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 import React from 'react';
@@ -29,6 +29,7 @@ const Index = ({ data }) => {
         <title>Topics</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <meta name="description" content="Sample Blog app created in NextJs that utilizes the content sdk library" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <div data-testid="TopicsListContainer">
         <Header

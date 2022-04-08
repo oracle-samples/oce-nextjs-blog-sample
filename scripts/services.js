@@ -1,10 +1,10 @@
 /**
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 /* eslint-disable no-param-reassign */
 
-import getDeliveryClient from './server-config-utils';
+import getClient from './server-config-utils';
 import { getImageUrl } from './utils';
 
 /**
@@ -198,7 +198,8 @@ function fetchHomePage(client) {
  * @returns {Promise({object})} - A Promise containing the data
  */
 export function getTopicsListPageData() {
-  const client = getDeliveryClient();
+  const client = getClient();
+
   return fetchHomePage(client)
     .then((data) => (
       getRenditionURLs(client, data.logoID)
@@ -227,7 +228,7 @@ export function getTopicsListPageData() {
  * @returns {Promise({object})} - A Promise containing the data
  */
 export function fetchTopicArticles(topicId) {
-  const client = getDeliveryClient();
+  const client = getClient();
   return client.queryItems({
     q: `(type eq "OCEGettingStartedArticle" AND fields.topic eq "${topicId}")`,
     orderBy: 'fields.published_date:desc',
@@ -293,7 +294,7 @@ export function fetchTopicArticles(topicId) {
  * @returns {Promise({object})} - A Promise containing the data
  */
 export function fetchArticleDetails(articleId) {
-  const client = getDeliveryClient();
+  const client = getClient();
   return client.getItem({
     id: articleId,
     expand: 'fields.author,fields.image',
@@ -336,7 +337,7 @@ export function fetchArticleDetails(articleId) {
  * @returns {Promise({object})} - A Promise containing the data
  */
 export function fetchTopicIds() {
-  const client = getDeliveryClient();
+  const client = getClient();
 
   return client.queryItems({
     q: '(type eq "OCEGettingStartedHomePage" AND name eq "HomePage")',
@@ -357,7 +358,7 @@ export function fetchTopicIds() {
  * @returns {Promise({Object})} - A Promise containing the data
  */
 export function fetchTopicName(topicId) {
-  const client = getDeliveryClient();
+  const client = getClient();
   return client.getItem({
     id: topicId,
   }).then((topic) => topic.name)
@@ -386,7 +387,7 @@ function fetchTopicArticlesSimple(client, topicId) {
  * @returns {Promise({object})} - A Promise containing the data
  */
 export function fetchAllArticlesSimple() {
-  const client = getDeliveryClient();
+  const client = getClient();
   return fetchTopicIds()
     .then((topicIds) => {
       const promises = [];

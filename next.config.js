@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2022, Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
  */
 /*
@@ -8,6 +8,11 @@
  * It gets used by the Next.js server and build phases, and it's
  * not included in the browser build.
  */
+
+const sdkPackage = require('./node_modules/@oracle/content-management-sdk/package.json');
+
+const BUILD_TAG = process.env.BUILD_TAG || 'none';
+const SDK_VERSION = sdkPackage.version;
 
 /*
  * Gets the BASE_URL from the command used to start this app.
@@ -48,6 +53,8 @@ module.exports = {
   // make server environment variables accessible in the app even in the client bundle
   // variables with the prefix NEXT_PUBLIC_ will be available in the browser application
   env: {
+    NEXT_PUBLIC_BUILD_TAG: BUILD_TAG,
+    NEXT_PUBLIC_SDK_VERSION: SDK_VERSION,
     NEXT_PUBLIC_SERVER_URL: process.env.SERVER_URL,
     NEXT_PUBLIC_API_VERSION: process.env.API_VERSION,
     NEXT_PUBLIC_CHANNEL_TOKEN: process.env.CHANNEL_TOKEN,
